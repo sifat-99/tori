@@ -1,1 +1,40 @@
 @import "tailwindcss";
+/* ================= WAVE ANIMATION ================= */
+
+@keyframes wave-move {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(-25%) rotate(2deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+.animate-wave-fast {
+  animation: wave-move 7s ease-in-out infinite;
+}
+
+.animate-wave-mid {
+  animation: wave-move 12s ease-in-out infinite;
+  left: -50%;
+}
+
+.animate-wave-slow {
+  animation: wave-move 20s ease-in-out infinite;
+  left: -100%;
+}
+
+/* ================= FLUID EFFECT ================= */
+
+@keyframes fluid {
+  0% { border-radius: 45% 40% 46% 42% / 40% 45% 42% 48%; }
+  50% { border-radius: 40% 45% 42% 48% / 45% 40% 46% 42%; }
+  100% { border-radius: 45% 40% 46% 42% / 40% 45% 42% 48%; }
+}
+
+/* Combine animations */
+.animate-wave-fast,
+.animate-wave-mid,
+.animate-wave-slow {
+  animation-name: wave-move, fluid;
+}
+html {
+  scroll-behavior: smooth;
+}
