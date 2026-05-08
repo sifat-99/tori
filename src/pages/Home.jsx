@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import tori from "../assets/tori-logo.png";
 import tori_transparent from "../assets/ProjectTori.png";
 
@@ -97,6 +98,7 @@ const Home = () => {
             <a href="#about" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'about' ? 'active' : ''}`}><span className="relative z-10">About</span></a>
             <a href="#team" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'team' ? 'active' : ''}`}><span className="relative z-10">Team</span></a>
             <a href="#contact" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'contact' ? 'active' : ''}`}><span className="relative z-10">Contact</span></a>
+            <Link to="/classroom" className="btn-wave px-4 py-2 rounded-lg transition font-medium"><span className="relative z-10">Classroom</span></Link>
           </div>
 
           {/* mobile menu */}
@@ -148,6 +150,13 @@ const Home = () => {
             >
               <span className="relative z-10">Contact</span>
             </a>
+            <Link
+              to="/classroom"
+              onClick={handleLinkClick}
+              className="btn-wave text-white transition py-2 px-4 rounded-lg"
+            >
+              <span className="relative z-10">Classroom</span>
+            </Link>
             <button
               onClick={() => {
                 handleLinkClick();
