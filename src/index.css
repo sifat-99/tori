@@ -1,40 +1,189 @@
 @import "tailwindcss";
-/* ================= WAVE ANIMATION ================= */
+/* ================= REALISTIC WAVE ANIMATION ================= */
 
-@keyframes wave-move {
-  0% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(-25%) rotate(2deg); }
-  100% { transform: translateX(-50%) rotate(0deg); }
+.wave-mask {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,49V120h1200V49c-95.2,16-168.1,28.8-283.4,28.8C757.2,77.8,662,18,521.1,18C379.7,18,266.3,61.5,133.5,61.5C70.4,61.5,29.3,55.9,0,49z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: repeat-x;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,49V120h1200V49c-95.2,16-168.1,28.8-283.4,28.8C757.2,77.8,662,18,521.1,18C379.7,18,266.3,61.5,133.5,61.5C70.4,61.5,29.3,55.9,0,49z' fill='black'/%3E%3C/svg%3E");
+    mask-repeat: repeat-x;
 }
 
-.animate-wave-fast {
-  animation: wave-move 7s ease-in-out infinite;
+.wave-mask-1 {
+    -webkit-mask-size: 2000px 100%;
+    mask-size: 2000px 100%;
+    width: calc(100% + 2000px);
+    animation: wave-translate-1 30s linear infinite;
 }
 
-.animate-wave-mid {
-  animation: wave-move 12s ease-in-out infinite;
-  left: -50%;
+.wave-mask-2 {
+    -webkit-mask-size: 1500px 100%;
+    mask-size: 1500px 100%;
+    width: calc(100% + 1500px);
+    animation: wave-translate-2 22s linear infinite;
 }
 
-.animate-wave-slow {
-  animation: wave-move 20s ease-in-out infinite;
-  left: -100%;
+.wave-mask-3 {
+    -webkit-mask-size: 1000px 100%;
+    mask-size: 1000px 100%;
+    width: calc(100% + 1000px);
+    animation: wave-translate-3 15s linear infinite;
 }
 
-/* ================= FLUID EFFECT ================= */
-
-@keyframes fluid {
-  0% { border-radius: 45% 40% 46% 42% / 40% 45% 42% 48%; }
-  50% { border-radius: 40% 45% 42% 48% / 45% 40% 46% 42%; }
-  100% { border-radius: 45% 40% 46% 42% / 40% 45% 42% 48%; }
+.wave-mask-4 {
+    -webkit-mask-size: 700px 100%;
+    mask-size: 700px 100%;
+    width: calc(100% + 700px);
+    animation: wave-translate-4 10s linear infinite;
 }
 
-/* Combine animations */
-.animate-wave-fast,
-.animate-wave-mid,
-.animate-wave-slow {
-  animation-name: wave-move, fluid;
+@keyframes wave-translate-1 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-2000px);
+    }
 }
+
+@keyframes wave-translate-2 {
+    0% {
+        transform: translateX(-1500px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes wave-translate-3 {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-1000px);
+    }
+}
+
+@keyframes wave-translate-4 {
+    0% {
+        transform: translateX(-700px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* ================= SUBMARINE ANIMATION ================= */
+
+@keyframes submarine-x {
+    0% {
+        transform: translateX(200px);
+    }
+
+    100% {
+        transform: translateX(calc(-100vw - 300px));
+    }
+}
+
+@keyframes submarine-y {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    33% {
+        transform: translateY(12px) rotate(-4deg);
+    }
+
+    66% {
+        transform: translateY(-8px) rotate(3deg);
+    }
+}
+
+.animate-submarine-x {
+    position: absolute;
+    right: 0;
+    animation: submarine-x 22s linear infinite;
+}
+
+.animate-submarine-y {
+    animation: submarine-y 5s ease-in-out infinite;
+}
+
+/* ================= BUBBLE ANIMATION ================= */
+
+@keyframes bubble {
+    0% {
+        transform: translateY(0) scale(1) translateX(0);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-40px) scale(1.5) translateX(30px);
+        opacity: 0;
+    }
+}
+
+.animate-bubble-1 {
+    animation: bubble 1.2s infinite ease-out;
+}
+
+.animate-bubble-2 {
+    animation: bubble 1.5s infinite ease-out 0.4s;
+}
+
+.animate-bubble-3 {
+    animation: bubble 1.8s infinite ease-out 0.8s;
+}
+
+/* ================= BUTTON WAVE FILL ================= */
+
+.btn-wave {
+    position: relative;
+    overflow: hidden;
+    transition: color 0.5s ease-in-out;
+}
+
+.btn-wave::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250%;
+    aspect-ratio: 1 / 1;
+    background-color: #22d3ee;
+    /* cyan-400 */
+    border-radius: 40%;
+    z-index: 0;
+    transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: wave-rotate 4s linear infinite;
+}
+
+.btn-wave:hover::before,
+.btn-wave.active::before {
+    top: -50%;
+}
+
+.btn-wave:hover,
+.btn-wave.active {
+    color: #000 !important;
+}
+
+@keyframes wave-rotate {
+    0% {
+        transform: translateX(-50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(360deg);
+    }
+}
+
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }

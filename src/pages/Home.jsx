@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tori from "../assets/tori-logo.png";
+import tori_transparent from "../assets/ProjectTori.png";
 
 import sajid from "../assets/team/sajid.png"
 import sifat from "../assets/team/sifat.png"
@@ -13,6 +14,28 @@ import { FaFacebookMessenger, FaBars, FaTimes } from "react-icons/fa";
 const Home = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "about", "team", "contact"];
+      let current = "home";
+
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150) {
+            current = section;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const teamMembers = [
     {
@@ -69,24 +92,24 @@ const Home = () => {
           </div>
 
           {/* desktop menu */}
-          <div className="hidden md:flex gap-6 md:gap-8 text-base md:text-lg">
-            <a href="#home" className="hover:text-cyan-300 transition">Home</a>
-            <a href="#about" className="hover:text-cyan-300 transition">About</a>
-            <a href="#team" className="hover:text-cyan-300 transition">Team</a>
-            <a href="#contact" className="hover:text-cyan-300 transition">Contact</a>
+          <div className="hidden md:flex gap-2 md:gap-4 text-base md:text-lg">
+            <a href="#home" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'home' ? 'active' : ''}`}><span className="relative z-10">Home</span></a>
+            <a href="#about" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'about' ? 'active' : ''}`}><span className="relative z-10">About</span></a>
+            <a href="#team" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'team' ? 'active' : ''}`}><span className="relative z-10">Team</span></a>
+            <a href="#contact" className={`btn-wave px-4 py-2 rounded-lg transition font-medium ${activeSection === 'contact' ? 'active' : ''}`}><span className="relative z-10">Contact</span></a>
           </div>
 
           {/* mobile menu */}
           <div className="flex items-center gap-3">
-            <button className="hidden md:block px-3 md:px-4 py-1.5 md:py-2 text-sm md:text-base rounded-full bg-cyan-500/20 border border-cyan-400 hover:bg-cyan-400 hover:text-black transition">
-              Explore
+            <button className="btn-wave hidden md:block px-4 py-2 text-sm md:text-base rounded-full bg-cyan-500/20 border border-cyan-400 transition">
+              <span className="relative z-10">Explore</span>
             </button>
-            
-            <button 
+
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-cyan-500/20 border border-cyan-400 hover:bg-cyan-400 transition"
+              className="btn-wave md:hidden p-2 rounded-lg bg-cyan-500/20 border border-cyan-400 transition"
             >
-              {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+              <span className="relative z-10">{isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}</span>
             </button>
           </div>
 
@@ -97,42 +120,42 @@ const Home = () => {
           isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="bg-black/80 backdrop-blur-md border-t border-white/10 py-4 px-4 flex flex-col gap-3">
-            <a 
-              href="#home" 
+            <a
+              href="#home"
               onClick={handleLinkClick}
-              className="text-white hover:text-cyan-300 transition py-2 px-3 rounded-lg hover:bg-white/10"
+              className={`btn-wave text-white transition py-2 px-4 rounded-lg ${activeSection === 'home' ? 'active' : ''}`}
             >
-              Home
+              <span className="relative z-10">Home</span>
             </a>
-            <a 
-              href="#about" 
+            <a
+              href="#about"
               onClick={handleLinkClick}
-              className="text-white hover:text-cyan-300 transition py-2 px-3 rounded-lg hover:bg-white/10"
+              className={`btn-wave text-white transition py-2 px-4 rounded-lg ${activeSection === 'about' ? 'active' : ''}`}
             >
-              About
+              <span className="relative z-10">About</span>
             </a>
-            <a 
-              href="#team" 
+            <a
+              href="#team"
               onClick={handleLinkClick}
-              className="text-white hover:text-cyan-300 transition py-2 px-3 rounded-lg hover:bg-white/10"
+              className={`btn-wave text-white transition py-2 px-4 rounded-lg ${activeSection === 'team' ? 'active' : ''}`}
             >
-              Team
+              <span className="relative z-10">Team</span>
             </a>
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               onClick={handleLinkClick}
-              className="text-white hover:text-cyan-300 transition py-2 px-3 rounded-lg hover:bg-white/10"
+              className={`btn-wave text-white transition py-2 px-4 rounded-lg ${activeSection === 'contact' ? 'active' : ''}`}
             >
-              Contact
+              <span className="relative z-10">Contact</span>
             </a>
-            <button 
+            <button
               onClick={() => {
                 handleLinkClick();
                 scrollToAbout();
               }}
-              className="mt-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-400 hover:bg-cyan-400 hover:text-black transition"
+              className="btn-wave mt-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-400 transition"
             >
-              Explore
+              <span className="relative z-10">Explore</span>
             </button>
           </div>
         </div>
@@ -143,13 +166,32 @@ const Home = () => {
 
         <div className="absolute inset-x-0 top-0 h-[45vh] bg-gradient-to-b from-[#1da1f2] via-[#aedefc] to-white z-0" />
 
-        <div className="absolute inset-x-0 top-[40vh] h-[20vh] z-20 pointer-events-none">
-          <div className="absolute w-[300%] h-full bg-cyan-300/20 animate-wave-slow opacity-50 blur-[1px]" />
-          <div className="absolute w-[250%] h-full bg-cyan-400/30 animate-wave-mid opacity-40 blur-[2px]" />
-          <div className="absolute w-[200%] h-full bg-gradient-to-b from-cyan-500 via-[#00838f] to-transparent animate-wave-fast" />
+        {/* Realistic Wave Layers */}
+        <div className="absolute inset-x-0 top-[35vh] h-[10.5vh] z-20 pointer-events-none">
+          <div className="absolute bottom-0 left-0 h-[100%] wave-mask wave-mask-1 bg-white/40" />
+          <div className="absolute bottom-0 left-0 h-[85%] wave-mask wave-mask-2 bg-gradient-to-b from-cyan-300/60 to-cyan-500/80" />
+
+          {/* Submarine swimming between waves */}
+          <div className="animate-submarine-x absolute -bottom-8 flex items-center">
+             {/* Submarine Bubbles */}
+             <div className="flex gap-1 absolute -right-6 md:-right-10 opacity-60">
+               <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full animate-bubble-1"></div>
+               <div className="w-2 h-2 md:w-3 md:h-3 bg-white rounded-full animate-bubble-2"></div>
+               <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-bubble-3"></div>
+             </div>
+             {/* Submarine */}
+             <img src={tori_transparent} alt="submarine" className="w-24 sm:w-28 md:w-36 animate-submarine-y drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]" />
+          </div>
+
+          <div className="absolute bottom-0 left-0 h-[70%] wave-mask wave-mask-3 bg-gradient-to-b from-cyan-400/80 to-[#00bcd4]" />
+          <div className="absolute bottom-0 left-0 h-[55%] wave-mask wave-mask-4 bg-[#00bcd4]" />
         </div>
 
-        <div className="absolute inset-x-0 top-[45vh] bottom-0 bg-gradient-to-b from-[#00bcd4] via-[#006064] to-[#071f33]" />
+        {/* Deep Ocean */}
+        <div className="absolute inset-x-0 top-[45vh] bottom-0 bg-gradient-to-b from-[#00bcd4] via-[#006064] to-[#071f33] overflow-hidden">
+          {/* Light rays reflecting through water */}
+          <div className="absolute inset-x-0 top-0 h-[30vh] opacity-30 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-200 via-transparent to-transparent animate-pulse" style={{ animationDuration: '4s' }} />
+        </div>
 
         <div className="relative z-30 flex flex-col justify-center items-center h-full text-center px-4 pt-[35vh]">
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold">
@@ -158,11 +200,11 @@ const Home = () => {
           <p className="mt-5 text-base sm:text-xl md:text-2xl">
             Next Generation Underwater ROV System
           </p>
-          <button 
+          <button
             onClick={scrollToAbout}
-            className="mt-10 px-8 md:px-12 py-3 md:py-4 rounded-full bg-white text-black hover:scale-110 transition font-bold"
+            className="btn-wave mt-10 px-8 md:px-12 py-3 md:py-4 rounded-full bg-white text-black hover:scale-110 transition font-bold"
           >
-            DIVE NOW
+            <span className="relative z-10">DIVE NOW</span>
           </button>
         </div>
       </div>
@@ -236,19 +278,19 @@ const Home = () => {
           <span className="text-5xl md:text-7xl text-cyan-400 absolute -top-6 md:-top-8 left-4 md:left-6">❝</span>
 
           <p className="text-gray-200 text-base md:text-lg leading-relaxed italic">
-            In the depths where light fades and pressure rises,  
-            we choose to go further — not because it’s easy,  
-            but because it’s unexplored.  
+            In the depths where light fades and pressure rises,
+            we choose to go further — not because it’s easy,
+            but because it’s unexplored.
 
             <br /><br />
 
-            Every wire, every line of code, every design we craft  
-            is driven by a single belief —  
-            that innovation begins where comfort ends.  
+            Every wire, every line of code, every design we craft
+            is driven by a single belief —
+            that innovation begins where comfort ends.
 
             <br /><br />
 
-            We are the minds beneath the surface,  
+            We are the minds beneath the surface,
             building the future in silence, strength, and determination.
           </p>
 
